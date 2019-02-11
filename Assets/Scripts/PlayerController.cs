@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour {
 	// Create public variables for player speed, and for the Text UI game objects
 	public float speed;
 	public Text countText;
-	public Text winText;
+	public GameObject winBox;
+    public Text winText;
+    public GameObject spawn;
 
 	// Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
 	private Rigidbody rb;
@@ -28,12 +30,13 @@ public class PlayerController : MonoBehaviour {
 		// Run the SetCountText function to update the UI (see below)
 		SetCountText ();
 
-		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
-		winText.text = "";
-	}
+        // Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
+        winText.text = "";
+        winBox.SetActive(false);
+    }
 
-	// Each physics step..
-	void FixedUpdate ()
+    // Each physics step..
+    void FixedUpdate ()
 	{
 		// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
 		float moveHorizontal = Input.GetAxis ("Horizontal");
@@ -58,12 +61,16 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 
 			// Add one to the score variable 'count'
-			count = count + 1;
+			count = count - 1;
 
 			// Run the 'SetCountText()' function (see below)
 			SetCountText ();
 		}
-	}
+        if (other.gameObject.CompareTag("Reset Zone"))
+        {
+            this.gameObject.transform.position = spawn.transform.position;
+        }
+    }
 
 	// Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
 	void SetCountText()
@@ -76,6 +83,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			// Set the text value of our 'winText'
 			winText.text = "You Win!";
-		}
+            winBox.SetActive(true);
+        }
 	}
 }
