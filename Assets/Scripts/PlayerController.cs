@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
         // Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
         Vector3 movement;
-        if (isOnGround == true && Input.GetAxis("Submit/Jump")>0)
+        if (isOnGround == true && Input.GetAxisRaw("Jump") != 0)
         {
             movement = new Vector3(moveHorizontal, jump, moveVertical);
             isOnGround = false;
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.transform.position = spawn.transform.position;
         }
 
-        if (other.gameObject.CompareTag("Special Pick Up"))
+        if (other.gameObject.CompareTag("Inverter Pick Up"))
         {
             isInverse = !isInverse;
         }

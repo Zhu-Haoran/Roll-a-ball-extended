@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Score : MonoBehaviour
+public class ScoreController : MonoBehaviour
 {
     public Text scoreText;
     public GameObject winBox;
-    public int numberOfPickUpInLevel = 12;
+    public int numberOfPickUpInLevel = 1;
     private int score;
 
     private List<GameObject> pickUpCollected;
@@ -65,7 +65,7 @@ public class Score : MonoBehaviour
         if (score >= numberOfPickUpInLevel)
         {
             winBox.SetActive(true);
-            GetComponent<Pause>().GameWon();
+            GetComponent<PauseController>().GameWon();
         }
     }
 }
